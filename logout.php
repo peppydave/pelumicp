@@ -5,6 +5,6 @@
 
 	session_destroy();
 	
-	header("Location:member_login.php");
+	header("Location:admin_login.php");
 
 ?>
