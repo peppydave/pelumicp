@@ -23,7 +23,7 @@
 
 		$error = array();
 
-		if (empty($_POST['name']) || empty($_POST['gender']) || empty($_POST['year']) || empty($_POST['month']) || empty($_POST['day']) || empty($_POST['email']) || empty($_POST['address']) || empty($_POST['phone']) || empty($_POST['dept'])) {
+		if (empty($_POST['name']) || empty($_POST['gender']) || empty($_POST['year']) || empty($_POST['month']) || empty($_POST['day']) || empty($_POST['email']) || empty($_POST['address']) || empty($_POST['phone']) || empty($_POST['held']) || empty($_POST['dept'])) {
 
 			$error[] ="* You're missing some fields";
 
@@ -38,6 +38,7 @@
 					$email = mysqli_real_escape_string($db,$_POST['email']);
 					$address = mysqli_real_escape_string($db,$_POST['address']);
 					$phone = mysqli_real_escape_string($db,$_POST['phone']);
+					$held = mysqli_real_escape_string($db,$_POST['held']);
 					$dept = mysqli_real_escape_string($db,$_POST['dept']);
 			# code...
 		}
@@ -51,7 +52,7 @@
 				'".$email."',
 				'".$address."',
 				'".$phone."',
-				NULL,
+				'".$held."',
 				'".$dept."',
 				NOW ())
 				") or die(mysqli_error($db));
@@ -84,21 +85,23 @@ if(isset($_GET['success'])){
 	Name: <input type="text" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>"/>
 	<br/>
 
-	<p>Gender: <select name="gender">
-
-	<option value="">Select Gender</option>
-
-	<?php foreach ($gender as $gender) { ?>
-
-	<option value="<?php echo $gender?>" <?php if(isset($_POST['gender']) && $_POST['gender'] == $gender) {
-		echo "selected = 'selected'";  }?>> 
+	<select name="gender" class="txt">
+        
+  	<option value="">Select Gender</option>
+                        
+  	<?php foreach($gender as $gender){ ?>
+                        
+  	<option value="<?php echo $gender?>" <?php if(isset($_POST['gender']) && $_POST['gender'] == $gender) {
+	  
+	echo "selected = 'selected'"; } ?>> 
 	
-		<?php echo $gender?> 
-
-		</option>
-		</select>
-		<?php } ?>
-		<hr/>
+	<?php echo $gender?> 
+    
+    </option>
+                        
+    <?php } ?> 
+                        
+    </select><br />
 		<p>DOB: <select name="dob">
 		<option value="">DOB(YYYY)</option>
         
