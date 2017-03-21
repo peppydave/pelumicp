@@ -23,7 +23,7 @@
 
 		$error = array();
 
-		if (empty($_POST['name']) || empty($_POST['gender']) || empty($_POST['year']) || empty($_POST['month']) || empty($_POST['day']) || empty($_POST['email']) || empty($_POST['address']) || empty($_POST['phone']) || empty($_POST['held']) || empty($_POST['dept'])) {
+		if (empty($_POST['name']) || empty($_POST['gender']) || empty($_POST['dob']) || empty($_POST['email']) || empty($_POST['address']) || empty($_POST['phone']) || empty($_POST['held']) || empty($_POST['dept'])) {
 
 			$error[] ="* You're missing some fields";
 
@@ -32,9 +32,7 @@
 			$name = mysqli_real_escape_string($db,$_POST['name']);
 					$gender = mysqli_real_escape_string($db,$_POST['gender']);
 				
-					$year = mysqli_real_escape_string($db,$_POST['year']);
-					$month = mysqli_real_escape_string($db,$_POST['month']);
-					$day = mysqli_real_escape_string($db,$_POST['day']);
+					$dob = mysqli_real_escape_string($db,$_POST['dob']);
 					$email = mysqli_real_escape_string($db,$_POST['email']);
 					$address = mysqli_real_escape_string($db,$_POST['address']);
 					$phone = mysqli_real_escape_string($db,$_POST['phone']);
@@ -45,10 +43,9 @@
 		if(empty($error)){
 
 			$insert = mysqli_query($db, "INSERT INTO member VALUES(NULL,
+				'".$name."',
 				'".$gender."',
-				'".$year."',
-				'".$month."',
-				'".$day."',
+				'".$dob."','
 				'".$email."',
 				'".$address."',
 				'".$phone."',
@@ -102,59 +99,7 @@ if(isset($_GET['success'])){
     <?php } ?> 
                         
     </select><br />
-		<p>DOB: <select name="dob">
-		<option value="">DOB(YYYY)</option>
-        
-    <?php for($year=1900; $year<=2016; $year++){ ?>
-                        
- <option value="<?php echo $year ?>"<?php if(isset($_POST['year']) && $_POST['year'] == $year)
-
-{echo 'checked ="checked"';} ?>>
-                                
-    <?php echo $year ?>
-
-    <?php } ?>
-
-    </select>
-                
-    <select name="month" class="dob">
-    
-    <option value="">DOB(MM)</option>
-        				
-    <?php for($month=1; $month<=12; $month++){ ?>
-                        
-<option value="<?php echo $month ?>"<?php if(isset($_POST['month']) && $_POST['month'] == 
-
-$month){ echo 'checked = "checked"'; }?>>	
-	
-	<?php echo $month ?>
-                        
-    </option>
-                        
-    <?php }?>
-        
-    </select>
-
-   
-                
-   <select name="day">
-   
-   <option value="">DOB(DD)</option>
-        				
-   <?php for($day=1; $day<=31; $day++){ ?>
-                        
-<option value="<?php echo $day ?>"<?php if(isset($_POST['day']) && $_POST['day'] == $day){echo 
-
-'checked = "checked"';} ?>>
-                                
-   <?php echo $day ?>
-                                
-   </option>
-                                
-   <?php } ?>
-                        
-   </select><br />
-   </p>
+		<p>DOB: <input type="date" name="dob" value="YYYY-MM-DD">
 
 		
    </p>
